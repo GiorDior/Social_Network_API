@@ -74,7 +74,7 @@ Similar routes are available for thoughts, reactions, and friends.
 
 ## Walkthrough Video
 
-[Link to walkthrough video demonstrating the functionality](#)
+[Link to walkthrough video demonstrating the functionality](#https://app.screencastify.com/v3/watch/6esrfjwaX66P3LwTUqZs)
 
 Please watch the walkthrough video to see the API in action and to ensure that all acceptance criteria are met.
 
