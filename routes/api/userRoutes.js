@@ -10,6 +10,8 @@ const {
   getUserByID,
   updateUserByID,
   deleteUserByID,
+  addFriend,
+  deleteFriendByID,
 } = require("../../controllers/usercontroller");
 
 //GET
@@ -25,11 +27,11 @@ router
   .put(updateUserByID)
   .delete(deleteUserByID);
 
-//post
-
-//put id
-
-//delete
+//add friends - friendId = userID
+router
+  .route("/:userId/friends/:friendsId")
+  .post(addFriend)
+  .delete(deleteFriendByID);
 
 // /api/user/:id
 

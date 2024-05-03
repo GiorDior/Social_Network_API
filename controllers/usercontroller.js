@@ -8,7 +8,7 @@ module.exports = {
   async getUsers(req, res) {
     try {
       //may have to populate friends field
-      const users = await User.find();
+      const users = await User.find().populate("friends");
 
       res.json(users);
     } catch (err) {
@@ -77,6 +77,59 @@ module.exports = {
         Message: "----------------User deleted successfully--------------",
       });
     } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+
+  async addFriend(req, res) {
+    //find user and update - FindOneAndUpdate
+    //id in req.params
+    //use $addToset - adding to friends field
+
+    //res.json and catch
+    try {
+      const { userId, friendsId } = req.params;
+      // const { reactionBody, username } = req.body;
+      // console.log(req.body);
+      // const newReaction = { reactionBody, username };
+
+      // console.log(newReaction);
+
+      // await newReaction.save();
+
+      const user = await User.findByIdAndUpdate(
+        userId,
+        { $push: { friends: friendsId } },
+        { new: true }
+      );
+
+      if (!user) {
+        return res.status(400).json({
+          message:
+            "------------------------ Failed to update thought -----------------------",
+        });
+      }
+      res.json(user);
+    } catch (err) {
+      res.status(500).json(err);
+      //   console.log(thought);
+    }
+  },
+  async deleteFriendByID(req, res) {
+    try {
+      const userData = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $pull: { friends: req.params.friendsId } },
+        { new: true }
+      );
+
+      if (!userData) {
+        return res.status(400).json({ message: "Failed to delete friend" });
+      }
+
+      res.json(userData);
+    } catch (err) {
+      console.log(err);
       res.status(500).json(err);
     }
   },
